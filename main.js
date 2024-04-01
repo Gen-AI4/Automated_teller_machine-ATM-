@@ -1,168 +1,72 @@
 import inquirer from "inquirer";
 let myBalance = 10000;
 let pinCode = 4545;
-let myAns = await inquirer.prompt([
-    {
-        name: "userPin",
-        type: "password",
-        message: "Enter your pin",
-    },
-]);
-if (pinCode === myAns.userPin)
-    console.log("Your pin is correct!");
-let options = await inquirer.prompt([
-    {
-        name: "menu",
-        type: "list",
-        message: "Please select an option",
-        choices: ["Withdraw", "FastCash", "Balance Inquiry", "Other Transaction"],
-    },
-]);
-if (options.menu === "Withdraw") {
-    // console.log("Please enter amount")
-    let amount = await inquirer.prompt([
+async function ATM() {
+    let myAns = await inquirer.prompt([
         {
-            name: "amount",
-            type: "number",
-            message: "Please enter amount",
+            name: "userPin",
+            type: "password",
+            message: "Enter your pin",
         },
     ]);
-    myBalance = myBalance - amount.amount;
-    if (myBalance >= amount.amount) {
-        console.log(`Your Available Balance is ${myBalance}`);
+    if (pinCode === myAns.userPin)
+        console.log("Your pin is correct!");
+    let options = await inquirer.prompt([
+        {
+            name: "menu",
+            type: "list",
+            message: "Please select an option",
+            choices: ["Withdraw", "FastCash", "Balance Inquiry", "Other Transaction"],
+        },
+    ]);
+    if (options.menu === "Withdraw") {
+        // console.log("Please enter amount")
+        let amount = await inquirer.prompt([
+            {
+                name: "amount",
+                type: "number",
+                message: "Please enter amount",
+            },
+        ]);
+        myBalance = myBalance - amount.amount;
+        if (myBalance >= amount.amount) {
+            console.log(`Your Available Balance is ${myBalance}`);
+        }
+        else {
+            console.log(`Insufficient Balance`);
+        }
+    }
+    else if (options.menu === "FastCash") {
+        let fastCash = await inquirer.prompt([
+            {
+                name: "fastCash",
+                type: "list",
+                message: "Select Cash",
+                choices: ["500", "1000", "2000", "5000"],
+            },
+        ]);
+        myBalance = myBalance - fastCash.fastCash;
+        console.log(`Your remaining balance is ${myBalance}`);
+    }
+    else if (options.menu === "Balance Inquiry") {
+        console.log(`Your available balance is ${myBalance}`);
+    }
+    else if (options.menu === "Other Transaction") {
+        let trans = await inquirer.prompt([
+            {
+                name: "otherTrans",
+                type: "list",
+                message: "Would You like to other Transaction",
+                choices: ["Yes", "No"],
+            },
+        ]);
+        if (trans.otherTrans === "Yes") {
+            ATM();
+        }
     }
     else {
-        console.log(`Insufficient Balance`);
+        console.log("Your pin is invalid!");
     }
 }
-else if (options.menu === "FastCash") {
-    let fastCash = await inquirer.prompt([
-        {
-            name: "fastCash",
-            type: "list",
-            message: "Select Cash",
-            choices: ["500", "1000", "2000", "5000"],
-        },
-    ]);
-    myBalance = myBalance - fastCash.fastCash;
-    console.log(`Your remaining balance is ${myBalance}`);
-}
-else if (options.menu === "Balance Inquiry") {
-    console.log(`Your available balance is ${myBalance}`);
-}
-else if (options.menu === "Other Transaction") {
-    let trans = await inquirer.prompt([
-        {
-            name: "otherTrans",
-            type: "list",
-            message: "Would You like to ther Transaction",
-            choices: ["Yes", "No"],
-        },
-    ]);
-}
-else {
-    console.log("Your pin is invalid!");
-}
-//  while(trans.otherTrans === "Yes"){
-//     let myAns = await inquirer.prompt([{
-//        name : "userPin",
-//        type : "password",
-//        message : "Enter your pin"
-//         }]);
-//     if (pinCode === myAns.userPin)
-//         console.log("Your pin is correct!")
-//         let options = await inquirer.prompt([{
-//             name : "menu",
-//             type : "list",
-//             message : "Please select an option",
-//             choices : ["Withdraw", "FastCash", "Balance Inquiry" , "Other transaction"],
-//         }]);
-//          if (options.menu === "Withdraw") {
-//             // console.log("Please enter amount")
-//             let amount = await inquirer.prompt([{
-//                 name : "amount",
-//                 type : "number",
-//                 message : "Please enter amount"
-//             }]);
-//             (myBalance = myBalance - amount.amount)
-//             if (myBalance >= amount.amount) {
-//                 console.log(`Your Available Balance is ${myBalance}`)
-//             } else {
-//                 console.log(`Insufficient Balance`)
-//             }
-//         } else if (options.menu === "FastCash") {
-//             let fastCash = await inquirer.prompt([{
-//                 name : "fastCash",
-//                 type : "list",
-//                 message : "Select Cash",
-//                 choices : ["500" , "1000" , "2000" , "5000"],
-//                 }]);
-//                 myBalance = myBalance - fastCash.fastCash
-//                 console.log(`Your remaining balance is ${myBalance}`)
-//         } else if (options.menu === "Balance Inquiry") {
-//             console.log(`Your available balance is ${myBalance}`)}
-//         else if (options.menu === "Other transaction") {
-//              trans  = await inquirer.prompt([{
-//                 name : "otherTrans",
-//                 type : "list",
-//                 message : "Would you like to other transaction",
-//                 choices : ["Yes" , "No"]
-//                               }])
-//                             }
-//      else  {
-//         console.log("Your pin is invalid!")
-//      }
-//     }
-// import inquirer from "inquirer";
-// async function main() {
-//     let myBalance = 10000;
-//     let pinCode = "4545";
-//     let myAns = await inquirer.prompt([{
-//         name: "userPin",
-//         type: "password",
-//         message: "Enter your pin"
-//     }]);
-//     if (pinCode === myAns.userPin) {
-//         console.log("Your pin is correct!");
-//         let options = await inquirer.prompt([{
-//             name: "menu",
-//             type: "list",
-//             message: "Please select an option",
-//             choices: ["Withdraw", "FastCash", "Balance Inquiry", "Other transaction"],
-//         }]);
-//         if (options.menu === "Withdraw") {
-//             let amount = await inquirer.prompt([{
-//                 name: "amount",
-//                 type: "number",
-//                 message: "Please enter amount"
-//             }]);
-//             if (myBalance >= amount.amount) {
-//                 myBalance -= amount.amount;
-//                 console.log(`Your Available Balance is ${myBalance}`);
-//             } else {
-//                 console.log(`Insufficient Balance`);
-//             }
-//         } else if (options.menu === "FastCash") {
-//             let fastCash = await inquirer.prompt([{
-//                 name: "fastCash",
-//                 type: "list",
-//                 message: "Select Cash",
-//                 choices: ["500", "1000", "2000", "5000"],
-//             }]);
-//             myBalance -= parseInt(fastCash.fastCash);
-//             console.log(`Your remaining balance is ${myBalance}`);
-//         } else if (options.menu === "Balance Inquiry") {
-//             console.log(`Your available balance is ${myBalance}`);
-//         } else if (options.menu === "Other transaction") {
-//             let trans = await inquirer.prompt([{
-//                 name: "otherTrans",
-//                 type: "list",
-//                 message: "Would you like to do another transaction",
-//                 choices: ["Yes", "No"],
-//             }]);
-//         }
-//     } else {
-//         console.log("Your pin is invalid!");
-//     }
-// }
-// main();
+;
+ATM();

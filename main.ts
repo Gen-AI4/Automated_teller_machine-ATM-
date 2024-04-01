@@ -2,7 +2,8 @@ import inquirer from "inquirer";
 
 let myBalance = 10000;
 let pinCode = 4545;
-
+async function ATM() {
+  
 let myAns = await inquirer.prompt([
   {
     name: "userPin",
@@ -58,9 +59,15 @@ if (options.menu === "Withdraw") {
       choices: ["Yes" , "No"],
     },
   ]);
+  if (trans.otherTrans === "Yes") {
+    ATM()
+  }
 } 
 
  else  {
     console.log("Your pin is invalid!")
  } 
 
+};
+
+ATM()
