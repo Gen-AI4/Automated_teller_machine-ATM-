@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 import inquirer from "inquirer";
 let myBalance = 10000;
 let pinCode = 4545;
@@ -20,7 +21,6 @@ async function ATM() {
         },
     ]);
     if (options.menu === "Withdraw") {
-        // console.log("Please enter amount")
         let amount = await inquirer.prompt([
             {
                 name: "amount",
@@ -29,7 +29,7 @@ async function ATM() {
             },
         ]);
         myBalance = myBalance - amount.amount;
-        if (myBalance >= amount.amount) {
+        if (myBalance <= amount.amount) {
             console.log(`Your Available Balance is ${myBalance}`);
         }
         else {

@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 import inquirer from "inquirer";
 
 let myBalance = 10000;
@@ -22,7 +23,7 @@ let options = await inquirer.prompt([
   },
 ]);
 if (options.menu === "Withdraw") {
-  // console.log("Please enter amount")
+  
   let amount = await inquirer.prompt([
     {
       name: "amount",
@@ -31,7 +32,7 @@ if (options.menu === "Withdraw") {
     },
   ]);
   myBalance = myBalance - amount.amount;
-  if (myBalance >= amount.amount) {
+  if (myBalance <= amount.amount) {
     console.log(`Your Available Balance is ${myBalance}`);
   } else {
     console.log(`Insufficient Balance`);
